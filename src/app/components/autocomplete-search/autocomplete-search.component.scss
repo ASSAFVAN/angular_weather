@@ -1,0 +1,19 @@
+.search-bar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.clear-icon,
+.search-icon {
+  position: absolute;
+  top: 56%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.clear-icon {
+  right: 2px;
+  cursor: pointer;
+  // opacity: 0;
+  transition: opacity 0.3s ease;
+}

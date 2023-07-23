@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sharp Sans Medium";
+  background-color: #fafafa;
+}
+
+@font-face {
+  font-family: "Sharp Sans Medium";
+  src: url("./assets/fonts/Sharp Sans Medium.otf");
+}
