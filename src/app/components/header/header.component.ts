@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -7,17 +8,23 @@ import { WeatherService } from 'src/app/services/weather.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isCelsius = true;
+  isCelsiusSubscription: Subscription;
   constructor(private weatherService: WeatherService) {}
 
+  ngOnInit(): void {
+    this.isCelsiusSubscription = this.weatherService.isCelsius$.subscribe(
+      (isCelsius) => {
+        this.isCelsius = isCelsius;
+      }
+    );
+  }
   toggleTemperature(): void {
     this.weatherService.toggleTemperature();
   }
 
-  getTempratureText(): boolean {
-    return this.weatherService.getIsCelsiusValue()
-      ? (this.isCelsius = true)
-      : (this.isCelsius = false);
+  ngOnDestroy(): void {
+    this.isCelsiusSubscription.unsubscribe();
   }
 }
