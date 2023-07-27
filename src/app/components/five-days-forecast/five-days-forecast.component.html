@@ -1,0 +1,6 @@
+<ng-container *ngIf="forecastData">
+  <p class="forecast-title"><strong>Forecast For The Next 5 Days</strong></p>
+  <div class="days-forecast-container">
+    <app-day *ngFor="let day of forecastData" [dailyData]="day"> </app-day>
+  </div>
+</ng-container>

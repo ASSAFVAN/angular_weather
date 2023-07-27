@@ -1,0 +1,14 @@
+<div *ngIf="currentData" class="current-weather-container">
+  <p class="city-name">{{ cityName }}</p>
+  <p class="temperature">
+    {{
+      isCelsius
+        ? currentData.Temperature.Metric.Value
+        : toFahrenheit(currentData.Temperature.Metric.Value)
+    }}<span>&deg;</span>
+  </p>
+  <p class="description">{{ currentData.WeatherText }}</p>
+  <div (click)="toggleFavorites()" class="toggle-button">
+    <span>{{ toggle ? "❤️" : "♡" }}</span>
+  </div>
+</div>

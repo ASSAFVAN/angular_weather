@@ -1,6 +1,12 @@
 <app-autocomplete-search></app-autocomplete-search>
-<div *ngIf="currentCityConditions$ | async as currentCityConditions">
-  <p>{{ currentCityConditions[0].WeatherText }}</p>
-  <p>{{ currentCityConditions[0].WeatherIcon }}</p>
-  <p>{{ currentCityConditions[0].Temperature.Metric.Value }}</p>
+
+<div class="main-container">
+  <app-current-weather
+    [currentData]="(cityForecastDetails$ | async)?.current[0]"
+    [cityName]="cityName"
+    [cityCode]="cityCode"
+  ></app-current-weather>
+  <app-five-days-forecast
+    [forecastData]="(cityForecastDetails$ | async)?.forecast.DailyForecasts"
+  ></app-five-days-forecast>
 </div>

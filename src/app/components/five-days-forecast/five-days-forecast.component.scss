@@ -1,0 +1,28 @@
+.forecast-title {
+  margin-bottom: 15px;
+}
+
+.days-forecast-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  :host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .days-forecast-container {
+    flex-direction: column;
+    width: 70%;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,36 @@
+.current-weather-container {
+  background-image: url("https://developer.accuweather.com/sites/default/files/01-s.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 400px;
+  height: 300px;
+  margin-top: 20px;
+
+  animation: scaleCurrentWeather 0.4s ease-in;
+  .city-name {
+    font-size: 35px;
+  }
+
+  .temperature {
+    font-size: 80px;
+  }
+
+  .description {
+    font-size: 22px;
+  }
+
+  .toggle-button {
+    cursor: pointer;
+    color: crimson;
+  }
+}
+
+@keyframes scaleCurrentWeather {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

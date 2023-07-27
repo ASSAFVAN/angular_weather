@@ -2,20 +2,44 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #f2f2f2;
-}
+  padding: 5px 10px;
+  background-color: lightskyblue;
 
-.logo {
-  cursor: pointer;
-}
+  .logo {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover span {
+      color: white;
+    }
 
-.logo img {
-  height: 40px;
-}
+    svg {
+      width: 55px;
+      height: 55px;
+      &:hover {
+        fill: white;
+      }
+    }
+  }
 
-.links a {
-  margin-left: 10px;
-  text-decoration: none;
-  color: #333;
+  .links a {
+    margin-left: 10px;
+    text-decoration: none;
+    &:hover {
+      color: white;
+    }
+  }
+
+  .toggle-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1px 3px;
+    font-weight: bold;
+    cursor: pointer;
+
+    .red {
+      color: red;
+    }
+  }
 }

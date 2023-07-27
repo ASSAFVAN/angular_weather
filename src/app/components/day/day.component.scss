@@ -1,0 +1,100 @@
+.day-container {
+  background-color: transparent;
+  width: 130px;
+  height: 200px;
+  border: 2px solid;
+  border-radius: 10px;
+  perspective: 1000px;
+
+  .day-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    .day-card-front,
+    .day-card-back {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+    }
+  }
+}
+
+.day-container:hover .day-card {
+  transform: rotateY(180deg);
+}
+
+.day-card-front {
+  background-color: lightsteelblue;
+  border-radius: 8px;
+  height: 100%;
+  .temp-text {
+    margin-right: 10px;
+  }
+}
+
+.day-card-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: lightblue;
+  color: black;
+  border-radius: 8px;
+  transform: rotateY(180deg);
+  padding: 3px 1px;
+
+  .card-back-inner {
+    background-color: cornflowerblue;
+    border-radius: 8px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    flex: 1;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  :host {
+    width: 100%;
+  }
+
+  .day-container {
+    width: unset;
+    height: 60px;
+    .text {
+      width: max-content;
+    }
+  }
+
+  .day-card-front {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & > p {
+      width: 40px;
+      margin-left: 5px;
+    }
+    .temp-text {
+      visibility: hidden;
+    }
+  }
+
+  .day-card-back {
+    flex-direction: row;
+    .card-back-inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height: 100%;
+    }
+  }
+}

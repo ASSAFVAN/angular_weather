@@ -1,1 +1,39 @@
-<p>favorites works!</p>
+<ng-container *ngIf="favorites.length; else noFavorites">
+  <div class="favorites-container">
+    <p class="favorites-title">My Favorites Locations</p>
+    <ul *ngFor="let item of favorites" (click)="goToCityForecast(item)">
+      <div
+        class="favorite-item-container"
+        [ngClass]="{
+          'background-color-day': item.currentWeather.IsDayTime,
+          'background-color-night': !item.currentWeather.IsDayTime
+        }"
+      >
+        <div class="favorite-item-left">
+          <div class="favorite-item-left-top">
+            <p>{{ item.cityName }}</p>
+            <p>
+              {{ convertTime(item.currentWeather.LocalObservationDateTime) }}
+            </p>
+          </div>
+          <p>{{ item.currentWeather.WeatherText }}</p>
+        </div>
+        <div class="favorite-item-right">
+          <p>
+            {{
+              isCelsius
+                ? item.currentWeather.Temperature.Metric.Value
+                : toFahrenheit(item.currentWeather.Temperature.Metric.Value)
+            }}&deg;
+          </p>
+        </div>
+      </div>
+    </ul>
+  </div>
+</ng-container>
+<ng-template #noFavorites>
+  <div class="favorites-container">
+    <p>No locations added to favorites yet.</p>
+    <p class="back" routerLink="/">Go back to homepage to add some!</p>
+  </div>
+</ng-template>

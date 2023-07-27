@@ -1,32 +1,39 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import {
   catchError,
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  tap,
 } from 'rxjs/operators';
 
 import { WeatherService } from 'src/app/services/weather.service';
 import { AutocompleteInterface } from 'src/app/types/autocompleteInterface';
-import { CurrentConditionsInterface } from 'src/app/types/currentConditions';
+import { CurrentConditionsInterface } from 'src/app/types/currentConditionsInterface';
+import {
+  NOTIFICATIONS_CONFIG,
+  notificationsConfig,
+} from 'src/app/services/notifications.config';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-autocomplete-search',
   templateUrl: './autocomplete-search.component.html',
   styleUrls: ['./autocomplete-search.component.scss'],
+  providers: [{ provide: NOTIFICATIONS_CONFIG, useValue: notificationsConfig }],
 })
 export class AutocompleteSearchComponent implements OnInit {
   results$?: Observable<AutocompleteInterface[]>;
   currentCityConditions$?: Observable<CurrentConditionsInterface>;
-  searchControl = new FormControl();
-  errorMessage = '';
+  searchControl = new FormControl('', [Validators.pattern('^[a-zA-Z]+$')]);
 
   @Input() selectedCity = '';
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private notifcationsService: NotificationsService
+  ) {}
 
   ngOnInit(): void {
     this.getCitiesResults();
@@ -36,42 +43,32 @@ export class AutocompleteSearchComponent implements OnInit {
     this.results$ = this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      tap((query) => console.log('Query:', query)),
-      switchMap((query) =>
-        this.weatherService.getAutocompleteResults(query).pipe(
-          catchError((error) => {
-            this.errorMessage =
-              'An error occurred while fetching results. Please try again.';
-            return of([]);
-          })
-        )
-      )
+      switchMap((query: string) => {
+        if (!this.searchControl.invalid) {
+          return this.weatherService.getAutocompleteResults(query).pipe(
+            catchError((error) => {
+              this.notifcationsService.showError(
+                notificationsConfig.serverError
+              );
+              return of([]);
+            })
+          );
+        } else {
+          this.notifcationsService.showError(
+            notificationsConfig.onlyEnglishLettersError
+          );
+          return of([]);
+        }
+      })
     );
   }
 
-  selectCity(cityKey: string): void {
-    console.log(cityKey, 'city key');
-
-    this.weatherService.setSelectedSuggestion(cityKey);
-    this.clearResults();
+  selectCity(cityKey: string, cityName: string): void {
+    this.weatherService.setSelectedSuggestion(cityKey, cityName);
+    this.clearQuery();
   }
 
   clearQuery(): void {
     this.searchControl.setValue('');
   }
-
-  clearResults() {
-    this.clearQuery();
-    this.results$ = of([]);
-  }
-
-  // clearQuery(query: string): void {
-  //   if (query) {
-  //     this.searchControl.setValue('');
-  //   }
-  // }
-  // clearText(inputField: string): void {
-  //   inputField === 'name' ? (this.isNameEmpty = true) : (this.isEmailEmpty = true);
-  //   this.signUpForm.get(inputField)?.setValue('');
-  // }
 }

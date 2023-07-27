@@ -1,0 +1,53 @@
+<div class="day-container">
+  <div class="day-card">
+    <div class="day-card-front">
+      <p>{{ getDayOfTheWeek(dailyData.Date) }}</p>
+      <img [src]="getIconUrl(dailyData.Day.Icon)" alt="Weather Icon" />
+      <p>
+        <span class="temp-text text">Min</span
+        >{{
+          isCelsius
+            ? dailyData.Temperature.Minimum.Value
+            : toFahrenheit(dailyData.Temperature.Minimum.Value)
+        }}&deg;
+      </p>
+      <p>
+        <span class="temp-text text">Max</span
+        >{{
+          isCelsius
+            ? dailyData.Temperature.Maximum.Value
+            : toFahrenheit(dailyData.Temperature.Minimum.Value)
+        }}&deg;
+      </p>
+    </div>
+    <div class="day-card-back">
+      <div class="card-back-inner">
+        <div class="card-back-inner-top">
+          <p class="text">Sunrise</p>
+          <p>{{ convertTime(dailyData.Sun.Rise) }}</p>
+        </div>
+        <hr />
+        <div class="card-back-inner-bottom">
+          <p class="text">Sunset</p>
+          <p>{{ convertTime(dailyData.Sun.Set) }}</p>
+        </div>
+      </div>
+      <div class="card-back-inner">
+        <div class="card-back-inner-top">
+          <p class="text">Real Feel</p>
+          <p>
+            {{
+              isCelsius
+                ? dailyData.RealFeelTemperature.Maximum.Value
+                : toFahrenheit(dailyData.Temperature.Minimum.Value)
+            }}&deg;
+          </p>
+        </div>
+        <hr />
+        <div class="card-back-inner-bottom">
+          <p class="text">{{ dailyData.RealFeelTemperature.Maximum.Phrase }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
