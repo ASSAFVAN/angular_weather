@@ -15,6 +15,7 @@ import { CurrentWeatherComponent } from './components/current-weather/current-we
 import { FiveDaysForecastComponent } from './components/five-days-forecast/five-days-forecast.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DayComponent } from './components/day/day.component';
+import { FavoriteCityComponent } from './components/favorite-city/favorite-city.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DayComponent } from './components/day/day.component';
     FiveDaysForecastComponent,
     PageNotFoundComponent,
     DayComponent,
+    FavoriteCityComponent,
   ],
   imports: [
     BrowserModule,

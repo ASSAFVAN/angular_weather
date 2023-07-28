@@ -1,0 +1,68 @@
+.favorite-item {
+  display: flex;
+  justify-content: space-between;
+  width: 83%;
+  border-radius: 15px;
+  padding: 10px;
+  height: 100px;
+
+  .favorite-item-right {
+    font-size: 35px;
+  }
+
+  .favorite-item-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    .favorite-item-left-top {
+      display: flex;
+      flex-direction: column;
+      & > p:nth-child(1) {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.trash-icon {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  border-radius: 10px;
+
+  svg {
+    background-color: red;
+    width: 40px;
+  }
+}
+
+.background-color-day {
+  background-color: lightskyblue;
+}
+.background-color-night {
+  background-color: midnightblue;
+  background-image: url("../../../assets/images/Lovepik_com-400246669-white-spot.png");
+  background-size: cover;
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  .favorite-item {
+    transition: width 0.3s ease;
+    width: 100%;
+  }
+  .favorite-item:hover {
+    width: calc(100% - 60px);
+  }
+  .trash-icon {
+    transition: width 0.3s ease;
+    display: none;
+  }
+  .favorite-item:hover + .trash-icon {
+    transform: translateX(0);
+    display: flex;
+  }
+}

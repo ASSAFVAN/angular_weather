@@ -1,51 +1,12 @@
 <ng-container *ngIf="favorites.length; else noFavorites">
   <div class="favorites-container">
     <p class="favorites-title">My Favorites Locations</p>
-    <ul class="favorite-item-container" *ngFor="let item of favorites">
-      <div
-        class="favorite-item"
-        [ngClass]="{
-          'background-color-day': item.currentWeather.IsDayTime,
-          'background-color-night': !item.currentWeather.IsDayTime
-        }"
-        (click)="goToCityForecast(item)"
-      >
-        <div class="favorite-item-left">
-          <div class="favorite-item-left-top">
-            <p>{{ item.cityName }}</p>
-            <p>
-              {{ convertTime(item.currentWeather.LocalObservationDateTime) }}
-            </p>
-          </div>
-          <p>{{ item.currentWeather.WeatherText }}</p>
-        </div>
-        <div class="favorite-item-right">
-          <p>
-            {{
-              isCelsius
-                ? item.currentWeather.Temperature.Metric.Value
-                : toFahrenheit(item.currentWeather.Temperature.Metric.Value)
-            }}&deg;
-          </p>
-        </div>
-      </div>
-      <div class="trash-icon" (click)="removeFromFavorites(item.cityCode)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="red"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-          />
-        </svg>
-      </div>
-    </ul>
+    <app-favorite-city
+      *ngFor="let city of favorites"
+      [item]="city"
+      [isCelsius]="isCelsius"
+      class="favorites-item-container"
+    ></app-favorite-city>
   </div>
 </ng-container>
 <ng-template #noFavorites>
