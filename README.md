@@ -1,3 +1,73 @@
+# Markdown syntax guide
+
+## Headers
+
+# This is a Heading h1
+
+## This is a Heading h2
+
+###### This is a Heading h6
+
+## Emphasis
+
+_This text will be italic_  
+_This will also be italic_
+
+**This text will be bold**  
+**This will also be bold**
+
+_You **can** combine them_
+
+## Lists
+
+### Unordered
+
+- Item 1
+- Item 2
+- Item 2a
+- Item 2b
+
+### Ordered
+
+1. Item 1
+1. Item 2
+1. Item 3
+1. Item 3a
+1. Item 3b
+
+## Images
+
+![This is an alt text.](/image/sample.png "This is a sample image.")
+
+## Links
+
+You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
+
+## Blockquotes
+
+> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
+>
+> > Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
+
+## Tables
+
+| Left columns | Right columns |
+| ------------ | :-----------: |
+| left foo     |   right foo   |
+| left bar     |   right bar   |
+| left baz     |   right baz   |
+
+## Blocks of code
+
+```
+let message = 'Hello world';
+alert(message);
+```
+
+## Inline code
+
+This web site is using `markedjs/marked`.
+
 # AngularWeatherApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
@@ -6,22 +76,28 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Application Overview
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+I've created a weather application using Angular framework.
+The Application uses Accuweather API to fetch data for a location.
 
-## Build
+**I used 4 endpoints from the accuweather API:**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **geoposition**: to get the user location. I used **Geolocation** api to get the user lat and lon and use these coords to get the data based on this position.
 
-## Running unit tests
+2. If user denied using Geolocation, I use Tel Aviv city as default city and fetch its data using
+   **current-conditions** endpoint to show the current weather.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. immediately after using another endpoint, the user gets the weather for the **next five days**.
 
-## Running end-to-end tests
+4. The user can also search in top of the page for a specific location using english letters only. This feature also uses another endpoint - **autocomplete** that gives suggestions locations based on the user query.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Additional Features
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Added a toggle on the header to switch between Celsius and Fahrenheit degrees.
+- Added a notification service based on toastr package - [ngx-toastr](https://www.npmjs.com/package/ngx-toastr) - to show error toasts when handling errors.
+- Application is responsive.
+- I added some animations:
+  1. When page loads the current weather pops.
+  2. When hovering on each day's card, it flips and show more info regarding that day.
+  3. On mobile devices, when hovering on favorite item in the favorites page, it reveals a delete item.
