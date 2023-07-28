@@ -11,9 +11,24 @@
     margin-bottom: 40px;
   }
 
-  .favorite-item-container {
+  .trash-icon {
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    border-radius: 10px;
+
+    svg {
+      background-color: red;
+      width: 40px;
+    }
+  }
+
+  .favorite-item {
     display: flex;
     justify-content: space-between;
+    width: 83%;
     border-radius: 15px;
     padding: 10px;
     height: 100px;
@@ -38,6 +53,8 @@
   }
 
   ul {
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
     width: 45%;
     color: white;
@@ -70,6 +87,22 @@
   .favorites-container {
     ul {
       width: 80%;
+      gap: 10px;
+      .favorite-item {
+        transition: width 0.3s ease;
+        width: 100%;
+      }
+      .favorite-item:hover {
+        width: calc(100% - 60px);
+      }
+      .trash-icon {
+        transition: width 0.3s ease;
+        display: none;
+      }
+      .favorite-item:hover + .trash-icon {
+        transform: translateX(0);
+        display: flex;
+      }
     }
   }
 }

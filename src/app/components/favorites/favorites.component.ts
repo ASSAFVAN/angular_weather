@@ -28,11 +28,11 @@ export class FavoritesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.favoritesService.favorites$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((favorites) => {
-        this.favorites = favorites;
-      });
+    this.initilize();
+  }
+
+  initilize(): void {
+    this.getUpdatedWeather();
     this.subscription = this.weatherService.isCelsius$.subscribe(
       (isCelsius) => {
         this.isCelsius = isCelsius;
@@ -40,9 +40,31 @@ export class FavoritesComponent implements OnInit {
     );
   }
 
+  getUpdatedWeather(): void {
+    this.favoritesService.favorites$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((favorites) => {
+        this.favorites = favorites;
+        favorites.forEach((city) => {
+          this.weatherService
+            .getCurrentCityConditions(city.cityCode)
+            .subscribe((updatedConditions) => {
+              this.favoritesService.updateWeatherDataForCity(
+                city.cityCode,
+                updatedConditions[0]
+              );
+            });
+        });
+      });
+  }
+
   goToCityForecast(item: FavoritesInterface): void {
     this.weatherService.setSelectedSuggestion(item.cityCode, item.cityName);
     this.router.navigate(['/']);
+  }
+
+  removeFromFavorites(cityCode: string): void {
+    this.favoritesService.removeFromFavorites(cityCode);
   }
 
   ngOnDestroy(): void {

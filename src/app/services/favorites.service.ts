@@ -63,7 +63,10 @@ export class FavoritesService {
   ): void {
     const favorites = this.getFavorites();
     const cityIndex = favorites.findIndex((item) => item.cityCode === cityId);
-    if (cityIndex !== -1) {
+    const currentWeatherChanged =
+      JSON.stringify(favorites[cityIndex].currentWeather) !==
+      JSON.stringify(updatedWeatherData);
+    if (currentWeatherChanged) {
       favorites[cityIndex].currentWeather = updatedWeatherData;
       this.favoritesSubject.next(favorites);
       this.updateLocalStorage(favorites);

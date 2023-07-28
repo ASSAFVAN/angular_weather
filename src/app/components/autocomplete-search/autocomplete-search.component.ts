@@ -26,7 +26,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 export class AutocompleteSearchComponent implements OnInit {
   results$?: Observable<AutocompleteInterface[]>;
   currentCityConditions$?: Observable<CurrentConditionsInterface>;
-  searchControl = new FormControl('', [Validators.pattern('^[a-zA-Z]+$')]);
+  searchControl = new FormControl('', [Validators.pattern('^[a-zA-Z -]+$')]);
 
   @Input() selectedCity = '';
 

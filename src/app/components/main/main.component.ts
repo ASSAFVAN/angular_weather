@@ -120,10 +120,10 @@ export class MainComponent implements OnInit {
               this.fiveDaysForecast$,
             ]).pipe(
               tap(([current, forecast]) => {
-                this.favoritesService.updateWeatherDataForCity(
-                  city.keyCode,
-                  current[0]
-                );
+                // this.favoritesService.updateWeatherDataForCity(
+                //   city.keyCode,
+                //   current[0]
+                // );
               }),
               map(([current, forecast]) => ({ current, forecast }))
             );
