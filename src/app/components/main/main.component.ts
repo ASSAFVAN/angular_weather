@@ -59,7 +59,7 @@ export class MainComponent implements OnInit {
             .subscribe((locationData: GeoPositionInterface) => {
               this.cityName = locationData.LocalizedName;
               this.cityCode = locationData.Key;
-              this.setDefaultCity();
+              // this.setDefaultCity();
               this.getCityForecast();
             });
         },
@@ -118,15 +118,7 @@ export class MainComponent implements OnInit {
             this.cityForecastDetails$ = combineLatest([
               this.currentCityConditions$,
               this.fiveDaysForecast$,
-            ]).pipe(
-              tap(([current, forecast]) => {
-                // this.favoritesService.updateWeatherDataForCity(
-                //   city.keyCode,
-                //   current[0]
-                // );
-              }),
-              map(([current, forecast]) => ({ current, forecast }))
-            );
+            ]).pipe(map(([current, forecast]) => ({ current, forecast })));
           }
           return of(null);
         })
