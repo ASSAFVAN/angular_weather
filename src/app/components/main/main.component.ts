@@ -59,7 +59,7 @@ export class MainComponent implements OnInit {
             .subscribe((locationData: GeoPositionInterface) => {
               this.cityName = locationData.LocalizedName;
               this.cityCode = locationData.Key;
-              // this.setDefaultCity();
+              this.setDefaultCity();
               this.getCityForecast();
             });
         },
