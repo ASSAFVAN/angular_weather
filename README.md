@@ -2,7 +2,7 @@
 
 I've created a weather application using Angular framework.
 The Application uses Accuweather API to fetch data for a location.
-A demo can be seen here: https://angular-weather-ccz1gj61h-assafvan.vercel.app/
+A demo can be seen here: https://angular-weather-navy.vercel.app/
 
 **I used 4 endpoints from the accuweather API:**
 
